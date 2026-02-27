@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Códigos Offline</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 350px; }
+        input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        button:active { background: #218838; }
+        #status { margin-top: 15px; font-size: 14px; color: #555; text-align: center; }
+        .online { color: green; font-weight: bold; }
+        .offline { color: orange; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Guardar Código</h2>
+        <input type="text" id="codigo" placeholder="Escribe el código...">
+        <button onclick="saveData()">Guardar en el Móvil</button>
+        <div id="status">Cargando...</div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Registrar el Service Worker para que funcione offline
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
