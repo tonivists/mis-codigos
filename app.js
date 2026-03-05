@@ -45,9 +45,30 @@ async function syncData() {
 }
 
 function updateUI() {
+    // 1. Obtener la lista del almacenamiento local
     let list = JSON.parse(localStorage.getItem('my_codes')) || [];
-    let net = navigator.onLine ? '<span class="online">ONLINE</span>' : '<span class="offline">OFFLINE</span>';
-    statusDiv.innerHTML = `Estado: ${net}<br>Pendientes de enviar: ${list.length}`;
+    
+    // 2. Actualizar texto de estado y red
+    let net = navigator.onLine ? 
+        '<span style="color:green">● Conectado</span>' : 
+        '<span style="color:orange">○ Offline (Guardando en móvil)</span>';
+    
+    document.getElementById('status').innerHTML = `Red: ${net}<br>Pendientes: <b>${list.length}</b>`;
+
+    // 3. Limpiar y rellenar la lista visual
+    const listaHTML = document.getElementById('lista-codigos');
+    listaHTML.innerHTML = ""; // Borramos lo que hubiera antes
+
+    if (list.length === 0) {
+        listaHTML.innerHTML = "<li>(Vacío)</li>";
+    } else {
+        // Por cada código en el móvil, creamos un puntito en la lista
+        list.forEach((item) => {
+            let li = document.createElement('li');
+            li.textContent = item.code;
+            listaHTML.appendChild(li);
+        });
+    }
 }
 
 // Escuchar cuando vuelve el internet
